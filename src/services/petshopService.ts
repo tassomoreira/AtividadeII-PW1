@@ -5,6 +5,9 @@ async function createPetshop(name:string, cnpj:string) {
         data: {
             name,
             cnpj,
+        },
+        include: {
+            pets: true
         }
     });
 
@@ -12,7 +15,11 @@ async function createPetshop(name:string, cnpj:string) {
 }
 
 async function findAllPetshops() {
-    const petshops = await prisma.petshop.findMany();
+    const petshops = await prisma.petshop.findMany({
+        include: {
+            pets: true
+        }
+    });
 
     return petshops;
 }
@@ -21,6 +28,9 @@ async function findPetshopByCnpj(cnpj:string) {
     const petshop = await prisma.petshop.findUnique({
         where: {
             cnpj
+        },
+        include: {
+            pets: true
         }
     });
 
