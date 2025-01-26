@@ -17,5 +17,15 @@ async function findAllPetshops() {
     return petshops;
 }
 
-const petshopService = { createPetshop, findAllPetshops };
+async function findPetshopByCnpj(cnpj:string) {
+    const petshop = await prisma.petshop.findUnique({
+        where: {
+            cnpj
+        }
+    });
+
+    return petshop;
+}
+
+const petshopService = { createPetshop, findAllPetshops, findPetshopByCnpj };
 export default petshopService;
