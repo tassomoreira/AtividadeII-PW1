@@ -25,5 +25,4 @@ async function createPetshop(req:Request, res:Response) {
     }
 }
 
-const petshopController = { createPetshop };
-export default petshopController;
+export default { createPetshop };

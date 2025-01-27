@@ -37,5 +37,4 @@ async function findPetshopByCnpj(cnpj:string) {
     return petshop;
 }
 
-const petshopService = { createPetshop, findAllPetshops, findPetshopByCnpj };
-export default petshopService;
+export default { createPetshop, findAllPetshops, findPetshopByCnpj };

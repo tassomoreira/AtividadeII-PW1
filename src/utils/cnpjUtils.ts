@@ -12,5 +12,4 @@ async function isCnpjUnique(cnpj:string) {
     return petshops.every(petshop => petshop.cnpj !== cnpj);
 }
 
-const cnpjUtils = { isCnpjFormatValid, isCnpjUnique };
-export default cnpjUtils;
+export default { isCnpjFormatValid, isCnpjUnique };
