@@ -26,4 +26,16 @@ async function createPet(req:Request, res:Response) {
     }
 }
 
-export default { createPet };
+async function findAllPets(req:Request, res:Response) {
+    try {
+        const petshop = req.petshop;
+
+        const pets = await petService.findAllPets(petshop.id);
+
+        res.status(200).json(pets);
+    } catch(e) {
+        console.error("Erro ao tentar buscar todos os pets: " + e);
+    }
+}
+
+export default { createPet, findAllPets };
