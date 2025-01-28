@@ -1,4 +1,4 @@
-import { Petshop, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 import prisma from "../prisma/client";
 
@@ -15,19 +15,24 @@ async function findAllPets(petshopId:string) {
         where: {
             petshopId
         },
-        select: {
-            id: true,
-            name: true,
-            type: true,
-            description: true,
-            vaccinated: true,
-            deadlineVaccination: true,
-            createdAt: true,
-            petshopId: false
+        omit: {
+            petshopId: true
         }
     });
 
     return pets;
 }
 
-export default { createPet, findAllPets };
+async function updatePet(id:string, petshopId:string, petData:Prisma.PetUpdateInput) {
+    const pet = await prisma.pet.update({
+        where: {
+            id,
+            petshopId
+        },
+        data: petData
+    });
+
+    return pet;
+}
+
+export default { createPet, findAllPets, updatePet };
