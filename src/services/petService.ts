@@ -29,7 +29,10 @@ async function updatePet(id:string, petshopId:string, petData:Prisma.PetUpdateIn
             id,
             petshopId
         },
-        data: petData
+        data: petData,
+        omit: {
+            petshopId: true
+        }
     });
 
     return pet;
@@ -43,10 +46,22 @@ async function vaccinatePet(id:string, petshopId:string) {
         },
         data: {
             vaccinated: true
+        },
+        omit: {
+            petshopId: true
         }
     });
 
     return pet;
 }
 
-export default { createPet, findAllPets, updatePet, vaccinatePet };
+async function deletePet(id:string, petshopId:string) {
+    const pet = await prisma.pet.delete({
+        where: {
+            id,
+            petshopId
+        }
+    });
+}
+
+export default { createPet, findAllPets, updatePet, vaccinatePet, deletePet };
