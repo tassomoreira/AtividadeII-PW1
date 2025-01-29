@@ -66,4 +66,24 @@ async function updatePet(req:Request, res:Response) {
     }
 }
 
-export default { createPet, findAllPets, updatePet };
+async function vaccinatePet(req:Request, res:Response) {
+    try {
+        const petshop = req.petshop;
+        const { id } = req.params;
+
+        const pet = await petService.vaccinatePet(id, petshop.id);
+
+        res.status(200).json(pet);
+    } catch(e) {
+        if(e instanceof Prisma.PrismaClientKnownRequestError) {
+            if(e.code === "P2025" || e.code === "P2023") {
+                res.status(404).json({ error: "Não existe nenhum pet com id informado." });
+                return;
+            }
+        }
+
+        console.error("Erro ao tentar marcar pet como vacinado: " + e);
+    }
+}
+
+export default { createPet, findAllPets, updatePet, vaccinatePet };

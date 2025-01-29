@@ -35,4 +35,18 @@ async function updatePet(id:string, petshopId:string, petData:Prisma.PetUpdateIn
     return pet;
 }
 
-export default { createPet, findAllPets, updatePet };
+async function vaccinatePet(id:string, petshopId:string) {
+    const pet = await prisma.pet.update({
+        where: {
+            id,
+            petshopId
+        },
+        data: {
+            vaccinated: true
+        }
+    });
+
+    return pet;
+}
+
+export default { createPet, findAllPets, updatePet, vaccinatePet };
